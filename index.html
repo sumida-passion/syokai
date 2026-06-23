@@ -387,119 +387,8 @@ h1{
 
 
 /* =========================================================
-   FINAL LAYOUT ADJUSTMENT
-   - title下の余白を少し狭める
-   - support01〜05 とオレンジボタンの重なりを回避
-   - 総合キャリア系のボタン重なりを整理
-   ========================================================= */
-
-/* タイトルとマップの距離を少し詰める */
-.map{
-  top:166px !important;
-  bottom:28px !important;
-}
-
-/* 全体カードを少しだけ上に詰める */
-.c-bunka,.c-athlete,.c-tankyu,.c-nurse{
-  top:0 !important;
-  height:17.5% !important;
-}
-.c-senkou{
-  top:45.2% !important;
-  height:42.5% !important;
-}
-.b-global,.b-bunkei,.b-athbun,.b-athri,.b-child,.b-food,.b-career{
-  top:21.0% !important;
-  height:17.8% !important;
-}
-
-/* 活動ボタンは下げすぎず、サポート画像用の下段を確保 */
-#set-bunka,
-#set-athlete,
-#set-child,
-#set-food,
-#set-career{
-  top:42.2% !important;
-}
-
-/* 文理・アスリートは横長のまま */
-#set-bunka{width:21.5% !important;}
-#set-athlete{width:20.7% !important;}
-
-/* 人間探究3列を整理：少し隙間を作る */
-#set-child{
-  left:46.4% !important;
-  width:10.6% !important;
-}
-#set-food{
-  left:58.0% !important;
-  width:10.6% !important;
-}
-#set-career{
-  left:69.6% !important;
-  width:10.6% !important;
-}
-
-/* 総合キャリア系の文字詰まり対策 */
-#set-career .badge,
-#set-food .badge,
-#set-child .badge{
-  font-size:13px !important;
-  padding-left:10px !important;
-  padding-right:8px !important;
-}
-
-/* 看護・専攻科は右側内に収める */
-#set-nurse{
-  top:10.6% !important;
-}
-#set-senkou{
-  top:58.0% !important;
-}
-
-/* サポートカードを一段下にきれいに固定 */
-.support-strip{
-  left:0 !important;
-  right:18.2% !important;
-  bottom:0 !important;
-  height:14.2% !important;
-  gap:10px !important;
-}
-
-/* サポートカード内ラベルを小さめにして圧迫感を減らす */
-.support-card::after{
-  bottom:7px !important;
-  left:10px !important;
-  right:10px !important;
-  padding:5px 8px !important;
-  font-size:12px !important;
-}
-
-/* ボタン位置 */
-.support-btn{
-  right:128px !important;
-  bottom:0 !important;
-}
-.reset{
-  bottom:0 !important;
-}
-
-/* 全体的に少しだけボタン高さを圧縮 */
-.badge{
-  height:32px !important;
-  font-size:13px !important;
-}
-
-/* 看護側は縦に詰める */
-#set-nurse .badge,
-#set-senkou .badge{
-  height:31px !important;
-  font-size:12.5px !important;
-}
-
-
-/* =========================================================
-   HPMain intro + subtle background
+   RESTORED FINAL PATCH
+   support入りHTMLをベースに、hpmain背景と看護レイアウトを安全に反映
    ========================================================= */
 .map::after{
   content:"";
@@ -507,20 +396,58 @@ h1{
   inset:0;
   z-index:0;
   pointer-events:none;
+  opacity:.56 !important;
+  filter:brightness(.86) saturate(.92) contrast(.96) blur(.8px) !important;
   background:
-    linear-gradient(135deg,rgba(5,8,15,.84),rgba(7,16,31,.90)),
-    url("https://sumida-passion.github.io/game-assets/images/hpmain.jpg") center center/cover no-repeat;
-  opacity:.18;
-  filter:brightness(.62) saturate(.82);
+    linear-gradient(135deg,rgba(5,8,15,.56),rgba(7,16,31,.66)),
+    url("https://sumida-passion.github.io/game-assets/images/hpmain.jpg") center center/cover no-repeat !important;
 }
 .map > *{
-  position:absolute;
   z-index:2;
 }
 .map .connector{z-index:1}
 .map .detail{z-index:80}
 .map .reset,.map .support-btn{z-index:42}
 
+/* 右側：衛生看護科と専攻科の空白を解消 */
+.c-nurse{
+  top:0 !important;
+  height:34.5% !important;
+}
+.c-senkou{
+  top:37.2% !important;
+  height:50.8% !important;
+}
+#set-nurse{
+  top:10.0% !important;
+  width:13.6% !important;
+}
+#set-senkou{
+  top:52.5% !important;
+  width:13.6% !important;
+}
+#set-nurse .badge,
+#set-senkou .badge{
+  height:31px !important;
+  font-size:12.5px !important;
+}
+
+/* サポート体制を必ず表示 */
+.support-btn{
+  display:block !important;
+  position:absolute !important;
+  right:128px !important;
+  bottom:0 !important;
+}
+.support-strip{
+  display:grid !important;
+  left:0 !important;
+  right:18.2% !important;
+  bottom:0 !important;
+  height:14.2% !important;
+}
+
+/* 表紙 */
 .intro{
   cursor:pointer;
   background:
@@ -544,25 +471,7 @@ h1{
   text-align:left !important;
   max-width:760px;
 }
-.intro-k{
-  color:#f2c978 !important;
-  font-size:clamp(1rem,1.5vw,1.3rem);
-  letter-spacing:.16em;
-  margin-bottom:14px !important;
-}
-.intro h2{
-  font-size:clamp(2.4rem,5.2vw,5.8rem) !important;
-  line-height:1.05 !important;
-  text-shadow:0 12px 34px rgba(0,0,0,.56);
-}
-.intro p{
-  margin-top:18px !important;
-  font-size:clamp(1.1rem,1.8vw,1.55rem) !important;
-  color:rgba(255,248,234,.88) !important;
-}
-.start{
-  display:none !important;
-}
+.start{display:none !important}
 .tap-hint{
   display:inline-block;
   margin-top:22px;
@@ -574,70 +483,6 @@ h1{
   font-weight:950;
   letter-spacing:.08em;
   backdrop-filter:blur(4px);
-}
-
-
-/* =========================================================
-   FINAL PATCH
-   - 2ページ目のhpmain背景を見える濃さへ
-   - 衛生看護科の空白を解消
-   ========================================================= */
-
-/* 背景写真をもう少し見えるように */
-.map::after{
-  opacity:.34 !important;
-  filter:brightness(.78) saturate(.88) contrast(.95) !important;
-  background:
-    linear-gradient(135deg,rgba(5,8,15,.70),rgba(7,16,31,.78)),
-    url("https://sumida-passion.github.io/game-assets/images/hpmain.jpg") center center/cover no-repeat !important;
-}
-
-/* 右側：衛生看護科と専攻科を詰める */
-.c-nurse{
-  top:0 !important;
-  height:34.5% !important;
-}
-.c-senkou{
-  top:37.2% !important;
-  height:50.8% !important;
-}
-
-/* 衛生看護科のオレンジは上ボックス内に収める */
-#set-nurse{
-  top:10.0% !important;
-  width:13.6% !important;
-}
-
-/* 専攻科は上へ */
-#set-senkou{
-  top:52.5% !important;
-  width:13.6% !important;
-}
-
-/* 看護側のボタンを少し詰めて重なり防止 */
-#set-nurse .badge,
-#set-senkou .badge{
-  height:31px !important;
-  font-size:12.5px !important;
-}
-
-/* サポート画像は最下段に固定 */
-.support-strip{
-  bottom:0 !important;
-  height:14.2% !important;
-}
-
-
-/* =========================================================
-   SAFE BACKGROUND STRENGTH PATCH
-   配置には一切触らず、hpmain背景だけ少し濃くする
-   ========================================================= */
-.map::after{
-  opacity:.56 !important;
-  filter:brightness(.86) saturate(.92) contrast(.96) blur(.8px) !important;
-  background:
-    linear-gradient(135deg,rgba(5,8,15,.56),rgba(7,16,31,.66)),
-    url("https://sumida-passion.github.io/game-assets/images/hpmain.jpg") center center/cover no-repeat !important;
 }
 
 </style>
@@ -788,6 +633,7 @@ h1{
 <script>
 const intro = document.getElementById('intro');
 intro.addEventListener('click',()=>intro.classList.add('hide'));
+
 
 const revealCounts = {};
 document.querySelectorAll('.badges').forEach(set=>{ revealCounts[set.id] = 0; });
