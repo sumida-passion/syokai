@@ -485,6 +485,72 @@ h1{
   backdrop-filter:blur(4px);
 }
 
+
+/* =========================================================
+   VIEWPORT FIT FIX
+   1366×768のプレゼンキャンバスを画面内に必ず収める
+   ========================================================= */
+html,body{
+  width:100% !important;
+  height:100% !important;
+  margin:0 !important;
+  overflow:hidden !important;
+  background:#05080f !important;
+}
+body{
+  display:flex !important;
+  align-items:center !important;
+  justify-content:center !important;
+}
+.stage{
+  width:1366px !important;
+  height:768px !important;
+  padding:26px 38px 26px !important;
+  position:relative !important;
+  transform-origin:center center !important;
+  flex:0 0 auto !important;
+}
+
+/* 固定キャンバス内でのマップ位置を再整理 */
+.map{
+  position:absolute !important;
+  left:38px !important;
+  right:38px !important;
+  top:166px !important;
+  bottom:28px !important;
+}
+
+/* サポートボタンが必ず見える位置 */
+.support-btn{
+  display:block !important;
+  position:absolute !important;
+  right:128px !important;
+  bottom:0 !important;
+  z-index:120 !important;
+}
+.reset{
+  position:absolute !important;
+  right:0 !important;
+  bottom:0 !important;
+  z-index:121 !important;
+}
+
+/* サポート画像列も画面内に固定 */
+.support-strip{
+  display:grid !important;
+  position:absolute !important;
+  left:0 !important;
+  right:18.2% !important;
+  bottom:0 !important;
+  height:14.2% !important;
+  z-index:90 !important;
+}
+
+/* 念のため、クリック可能に */
+.support-card.show{
+  pointer-events:auto !important;
+}
+
 </style>
 </head>
 <body>
@@ -744,6 +810,20 @@ hideAll = function(){
   originalHideAll();
   hideSupport();
 };
+
+
+/* viewport fit */
+function fitStageToViewport(){
+  const stage = document.querySelector('.stage');
+  if(!stage) return;
+  const baseW = 1366;
+  const baseH = 768;
+  const scale = Math.min(window.innerWidth / baseW, window.innerHeight / baseH);
+  stage.style.transform = `scale(${scale})`;
+}
+window.addEventListener('resize', fitStageToViewport);
+window.addEventListener('orientationchange', fitStageToViewport);
+fitStageToViewport();
 
 </script>
 </body>
